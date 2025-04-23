@@ -1,7 +1,7 @@
 #include <iostream>
 using namespace std;
 
-// definicao de tipo
+// definição de tipo
 struct NO {
 	int valor;
 	NO* esq;
@@ -11,23 +11,19 @@ struct NO {
 NO* raiz = NULL;
 
 // headers
-// estrutura principal
 void menu();
 void inicializar();
 void inserir();
 void exibir();
 void exibirQuantidade();
 
-
-
-// funcoes auxiliares Arvore
+// funções auxiliares Árvore
 NO* insereArvore(NO* no, int valor);
 NO* criaNO(int valor);
 int elementosArvore(NO* no);
 void exibirElementosArvore(NO* no);
-//--------------------------
 
-
+// função principal
 int main()
 {
 	menu();
@@ -37,16 +33,13 @@ void menu()
 {
 	int op = 0;
 	while (op != 5) {
-		system("cls"); // somente no windows
-		cout << "Menu Arvore";
-		cout << endl << endl;
+		system("cls"); // apenas no Windows
+		cout << "Menu Arvore\n\n";
 		cout << "1 - Inicializar Arvore \n";
 		cout << "2 - Exibir quantidade de elementos \n";
 		cout << "3 - Inserir elemento \n";
 		cout << "4 - Exibir elementos \n";
-
 		cout << "5 - Sair \n";
-
 		cout << "Opcao: ";
 		cin >> op;
 
@@ -54,7 +47,7 @@ void menu()
 		{
 		case 1: inicializar();
 			break;
-		case 2:exibirQuantidade();
+		case 2: exibirQuantidade();
 			break;
 		case 3: inserir();
 			break;
@@ -64,20 +57,15 @@ void menu()
 			break;
 		}
 
-		system("pause"); // somente no windows
+		system("pause"); // apenas no Windows
 	}
 }
 
 void inicializar()
 {
-
-	// provis�rio porque n�o libera a memoria usada pela arvore
-	NO* raiz = NULL;
-	
+	raiz = NULL; // corrigido para resetar a raiz global
 	cout << "Arvore inicializada \n";
-
 }
-
 
 void inserir()
 {
@@ -88,21 +76,19 @@ void inserir()
 		raiz = criaNO(valor);
 	}
 	else {
-		 insereArvore(raiz, valor);
+		insereArvore(raiz, valor);
 	}
-
-
 }
 
 void exibirQuantidade() {
 	cout << "Quantidade de elementos: " << elementosArvore(raiz) << endl;
-	
 }
 
 void exibir() {
+	cout << "Elementos da árvore (em ordem): ";
 	exibirElementosArvore(raiz);
+	cout << endl;
 }
-
 
 NO* criaNO(int valor)
 {
@@ -138,7 +124,6 @@ NO* insereArvore(NO* no, int valor)
 	else {
 		return NULL;
 	}
-	
 }
 
 int elementosArvore(NO* no)
@@ -152,5 +137,9 @@ int elementosArvore(NO* no)
 
 void exibirElementosArvore(NO* no)
 {
-	
+	if (no != NULL) {
+		exibirElementosArvore(no->esq);   // Visita esquerda
+		cout << no->valor << " ";         // Exibe valor
+		exibirElementosArvore(no->dir);   // Visita direita
+	}
 }
